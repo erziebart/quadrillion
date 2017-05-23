@@ -10,19 +10,13 @@ public class Solver {
 		// create board grids
 		Board[][] boardGrids = getDefaultBoard();
 		
-		Board white0 = boardGrids[0][0];
-		Board white1 = boardGrids[0][1];
-		Board white2 = boardGrids[0][2];
-		Board white3 = boardGrids[0][3];
-		Board black0 = boardGrids[1][0];
-		Board black1 = boardGrids[1][1];
-		Board black2 = boardGrids[1][2];
-		Board black3 = boardGrids[1][3];
-		
 		// set up board shape
 		BoardSetUp bsu = new BoardSetUp();
 		int shape = 0;
-		Board[] grids = {white3, black2, black1, black0};
+		Board[] grids = {boardGrids[0][3],  // white 3
+						 boardGrids[1][2],  // black 2
+						 boardGrids[1][1],  // black 1
+						 boardGrids[1][0]}; // black 0
 		int[] orientations = {3,1,1,3};
 		Point[] slots = bsu.getBoard(shape, grids, orientations);
 		Board board = new Board(slots);
@@ -31,8 +25,7 @@ public class Solver {
 		PieceList pieces = getDefaultList();
 		
 		// call the solver
-		Solver s = new Solver();
-		ArrayList<Piece> solution = s.solve(board, pieces);
+		ArrayList<Piece> solution = solve(board, pieces);
 		
 		if (solution == null) {
 			System.out.println("No Solution");
@@ -43,12 +36,12 @@ public class Solver {
 		}
 		
 		// get # of solutions
-		//int solutions = s.solutions(board, pieces);
+		//int solutions = solutions(board, pieces);
 		//System.out.println(solutions);
 	}
 	
 	// returns a list of piece locations that fill the board
-	public ArrayList<Piece> solve(Board bCurrent, PieceList lCurrent) {
+	public static ArrayList<Piece> solve(Board bCurrent, PieceList lCurrent) {
 		// base case
 		if (bCurrent.size() == 0) {
 			return new ArrayList<Piece>();
@@ -80,7 +73,7 @@ public class Solver {
 	}
 	
 	// returns how many ways the given piece list can fill the given board
-	public int solutions(Board bCurrent, PieceList lCurrent) {
+	public static int solutions(Board bCurrent, PieceList lCurrent) {
 		// base case
 		if (bCurrent.size() == 0) {
 			return 1;
