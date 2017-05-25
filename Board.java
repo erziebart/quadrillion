@@ -8,7 +8,7 @@ public class Board {
 	private boolean[][] slots;
 	
 	public Board(ArrayList<Point> slots) {
-		points = new ArrayList<Point>(slots);
+		this.points = new ArrayList<Point>(slots);
 		
 		// find max x and y values
 		int maxX, maxY;
@@ -33,10 +33,6 @@ public class Board {
 	public int size() {
 		return points.size();
 	}
-	
-	/*ArrayList<BoardSlot> getSlots() {
-		return slots;
-	}*/
 	
 	// returns a slot with the fewest neighbors
 	public Point getMostCornered() {
