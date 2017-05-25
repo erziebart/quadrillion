@@ -16,6 +16,11 @@ public class PieceList {
 		pieces.add(p);
 	}
 	
+	// returns size of list
+	public int size() {
+		return pieces.size();
+	}
+	
 	// returns a new PieceList with the current Piece removed
 	public PieceList removePiece() {
 		PieceList copy = new PieceList();

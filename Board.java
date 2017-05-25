@@ -4,29 +4,41 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Board {
-	private ArrayList<Point> slots;
+	private ArrayList<Point> points;
+	private boolean[][] slots;
 	
-	public Board(Point[] slots) {
-		this.slots = new ArrayList<Point>();
-		for (int i = 0; i < slots.length; i++) {
-			this.slots.add(slots[i]);
+	public Board(ArrayList<Point> slots) {
+		this.points = new ArrayList<Point>(slots);
+		
+		// find max x and y values
+		int maxX, maxY;
+		maxX = maxY = 0;
+		for(Point p: slots) {
+			if(p.x > maxX) {
+				maxX = p.x;
+			}
+			if(p.y > maxY) {
+				maxY = p.y;
+			}
+		}
+		
+		// copy Points
+		this.slots = new boolean[maxX+1][maxY+1];
+		for(Point p: slots) {
+			this.slots[p.x][p.y] = true;
 		}
 	}
 	
 	// returns the number of remaining slots
 	public int size() {
-		return slots.size();
-	}
-	
-	public ArrayList<Point> getSlots() {
-		return slots;
+		return points.size();
 	}
 	
 	// returns a slot with the fewest neighbors
 	public Point getMostCornered() {
 		int record = 4;
-		Point winner = slots.get(0);
-		for(Point p: slots) {
+		Point winner = points.get(0);
+		for(Point p: points) {
 			int current = getNeighbors(p);
 			if(current < record) {
 				record = current;
@@ -57,14 +69,15 @@ public class Board {
 		return neighbors;
 	}
 	
-	// returns whether a given Point is in the list
+	// returns whether a given slot is true
 	public boolean isSlotOpen(int x, int y) {
-		for (Point p: slots) {
-			if (p.x == x && p.y == y) {
-				return true;
-			}
+		try {
+			return slots[x][y];
+		} 
+		catch(ArrayIndexOutOfBoundsException e) {
+			return false;
 		}
-		return false;
+		
 	}
 	
 	// returns a list of transformed pieces p that will fit on the board in position s
@@ -84,26 +97,43 @@ public class Board {
 		return answer;
 	}
 	
-	// return new Board without slots corresponding to given piece
-	public Board removeSlots(Piece p) {
-		Point[] copy = new Point[slots.size()-p.getSize()];
-		
-		int i = 0;
-		for (int j = 0; j < slots.size(); j++) {
-			Point current = slots.get(j);
+	// remove slots corresponding to given piece
+	public void fillSlots(Piece p) {
+		// modify points
+		ArrayList<Point> copy = new ArrayList<Point>(size()-p.getSize());
+		for (int j = 0; j < size(); j++) {
+			Point current = points.get(j);
 			if (!p.isInPiece(current)) {
-				copy[i] = current;
-				i++;
+				copy.add(current);
 			}
 		}
+		points = copy;
 		
-		return new Board(copy);
+		// modify slots
+		for(Point point: p.getShape()) {
+			slots[point.x][point.y] = false;
+		}
+	}
+	
+	// add slots corresponding to a given piece
+	public void freeSlots(Piece p) {
+		// copy points
+		ArrayList<Point> copy = new ArrayList<Point>(size()+p.getSize());
+		copy.addAll(points);
+		
+		// add back piece points
+		for(Point point: p.getShape()) {
+			copy.add(point);
+			slots[point.x][point.y] = true;
+		}
+		
+		points = copy;
 	}
 	
 	@Override
 	public String toString() {
 		String s = "Board: ";
-		for (Point p: slots) {
+		for (Point p: points) {
 			s = s.concat("(" + Integer.toString(p.x) + "," + Integer.toString(p.y) + ");");
 		}
 		return s;

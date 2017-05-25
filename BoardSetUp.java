@@ -93,17 +93,12 @@ public class BoardSetUp {
 	 * 2 = 180 degrees
 	 * 3 = 270 degrees
 	*/
-	public Point[] getBoard(int shape, Board[] grids, int[] orientations) {
-		Board[] parts = new Board[4];
+	public Board getBoard(int shape, Point[][] grids, int[] orientations) {
+		Point[][] parts = new Point[4][];
 		
-		// copy and do rotations
+		// do rotations
 		for(int i = 0; i < 4; i++) {
-			ArrayList<Point> slots = grids[i].getSlots();
-			Point[] next = new Point[slots.size()];
-			parts[i] = new Board(slots.toArray(next));
-			for(int j = 0; j < orientations[i]; j++) {
-				parts[i] = getRotated(parts[i]);
-			}
+			parts[i] = getRotated(grids[i], orientations[i]);
 		}
 		
 		// arrange into given shape
@@ -184,32 +179,35 @@ public class BoardSetUp {
 		
 		// combine Points
 		ArrayList<Point> combined = new ArrayList<Point>();
-		for (Board b: parts) {
-			combined.addAll(b.getSlots());
+		for (Point[] b: parts) {
+			for (Point p: b) {
+				combined.add(p);
+			}
 		}
-		Point[] board = new Point[combined.size()];
-		return combined.toArray(board);
+		
+		return new Board(combined);
 	}
 	
-	// returns rotated board piece
-	public Board getRotated(Board b) {
-		ArrayList<Point> slots = b.getSlots();
-		Point[] rotated = new Point[slots.size()];
-		rotated = slots.toArray(rotated);
-		for (Point p: rotated) {
-			p.setLocation(p.y, -p.x + 3);
+	// returns rotated board piece points
+	public Point[] getRotated(Point[] b, int orientation) {
+		Point[] rotated = new Point[b.length];
+		
+		for (int i = 0; i < b.length; i++) {
+			Point p = rotated[i] = (Point)b[i].clone();
+			for (int j = 0; j < orientation; j++) {
+				p.setLocation(p.y, -p.x + 3);
+			}
 		}
-		return new Board(rotated);
+		return rotated;
 	}
 	
-	// returns translated board piece
-	public Board getTranslated(Board b, int deltaX, int deltaY) {
-		ArrayList<Point> slots = b.getSlots();
-		Point[] translated = new Point[slots.size()];
-		translated = slots.toArray(translated);
-		for (Point p: translated) {
+	// returns translated board piece points
+	public Point[] getTranslated(Point[] b, int deltaX, int deltaY) {
+		Point[] translated = new Point[b.length];
+		for (int i = 0; i < b.length; i++) {
+			Point p = translated[i] = (Point)b[i].clone();
 			p.translate(deltaX, deltaY);
 		}
-		return new Board(translated);
+		return translated;
 	}
 }
