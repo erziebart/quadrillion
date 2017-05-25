@@ -25,7 +25,7 @@ public class Piece {
 	}
 	
 	// returns the Points array
-	public Point[] getShape() {
+	Point[] getShape() {
 		return shape;
 	}
 	

@@ -8,18 +8,17 @@ public class Solver {
 	
 	public static void main(String[] args) {
 		// create board grids
-		Board[][] boardGrids = getDefaultBoard();
+		Point[][][] boardGrids = getDefaultBoard();
 		
 		// set up board shape
 		BoardSetUp bsu = new BoardSetUp();
 		int shape = 0;
-		Board[] grids = {boardGrids[0][3],  // white 3
-						 boardGrids[1][2],  // black 2
-						 boardGrids[1][1],  // black 1
-						 boardGrids[1][0]}; // black 0
-		int[] orientations = {3,1,1,3};
-		Point[] slots = bsu.getBoard(shape, grids, orientations);
-		Board board = new Board(slots);
+		Point[][] grids = {boardGrids[0][0],  // white 0
+						   boardGrids[0][1],  // white 1
+						   boardGrids[0][2],  // white 2
+						   boardGrids[0][3]}; // white 3
+		int[] orientations = {0,0,0,0};
+		Board board = bsu.getBoard(shape, grids, orientations);
 		
 		// set up pieces and their shapes
 		PieceList pieces = getDefaultList();
@@ -37,7 +36,7 @@ public class Solver {
 		
 		// get # of solutions
 		//int solutions = solutions(board, pieces);
-		//System.out.println(solutions);
+		//System.out.println("Solutions Found = " + solutions);
 	}
 	
 	// returns a list of piece locations that fill the board
@@ -50,47 +49,74 @@ public class Solver {
 		// find the best slot to investigate
 		Point sCurrent = bCurrent.getMostCornered();
 		
-		System.out.println("Begin Piece Loop");
+		//System.out.println("Begin Piece Loop");
+		// loop through all the pieces
 		while (lCurrent.hasNext()) {
 			Piece p = lCurrent.getNext();
+			
+			// loop across all orientations of this piece
 			ArrayList<Piece> orientations = bCurrent.fit(p, sCurrent);
-			System.out.println("Begin Orientation Loop");
+			//System.out.println("Begin Orientation Loop");
 			for (Piece pCurrent: orientations) {
-				Board bNext = bCurrent.removeSlots(pCurrent);
+				
+				// place piece
+				bCurrent.fillSlots(pCurrent);
 				PieceList lNext = lCurrent.removePiece();
-				System.out.println("Call Next Layer");
-				ArrayList<Piece> answer = solve(bNext, lNext);
-				System.out.println("Answer Was: " + answer);
+				
+				// recursive call
+				//System.out.println("Call Next Layer");
+				ArrayList<Piece> answer = solve(bCurrent, lNext);
+				
+				// remove piece
+				bCurrent.freeSlots(pCurrent);
+				
+				// check for answer
+				//System.out.println("Answer Was: " + answer);
 				if (answer != null) {
 					answer.add(pCurrent);
 					return answer;
 				}
 			}
-			System.out.println("End Orientation Loop");
+			//System.out.println("End Orientation Loop");
 		}
-		System.out.println("End Piece Loop");
+		//System.out.println("End Piece Loop");
 		return null;
 	}
 	
 	// returns how many ways the given piece list can fill the given board
 	public static int solutions(Board bCurrent, PieceList lCurrent) {
+		System.out.println(lCurrent.size());
+		
 		// base case
 		if (bCurrent.size() == 0) {
 			return 1;
 		}
 		
-		int solutions = 0;
+		int solutions = 0; // running total
+		
 		// find the best slot to investigate
 		Point sCurrent = bCurrent.getMostCornered();
 		
+		// loop through all the pieces
 		while (lCurrent.hasNext()) {
 			Piece p = lCurrent.getNext();
+			
+			// loop across all orientations of this piece
 			ArrayList<Piece> orientations = bCurrent.fit(p, sCurrent);
 			for (Piece pCurrent: orientations) {
-				Board bNext = bCurrent.removeSlots(pCurrent);
+				
+				// place piece
+				bCurrent.fillSlots(pCurrent);
 				PieceList lNext = lCurrent.removePiece();
-				int answer = solutions(bNext, lNext);
-				System.out.println("Answer Was: " + answer);
+				
+				// recursive call
+				int answer = solutions(bCurrent, lNext);
+				//System.out.println("Answer Was: " + answer);
+				
+				// remove piece
+				bCurrent.freeSlots(pCurrent);
+				
+				// add answers to total
 				solutions += answer;
 			}
 		}
@@ -104,8 +130,8 @@ public class Solver {
 		}
 	}
 	
-	public static Board[][] getDefaultBoard() {
-		Board[][] result = new Board[2][4];
+	public static Point[][][] getDefaultBoard() {
+		Point[][][] result = new Point[2][4][];
 		
 		Point[] slotsw0 = {new Point(0,0), new Point(0,1), new Point(0,2), new Point(0,3),
 				/*new Point(1,0),*/ new Point(1,1), new Point(1,2), new Point(1,3),
@@ -140,14 +166,14 @@ public class Solver {
 				new Point(2,0), new Point(2,1), /*new Point(2,2),*/ new Point(2,3),
 				new Point(3,0), new Point(3,1), new Point(3,2), new Point(3,3)};
 		
-		result[0][0] = new Board(slotsw0);
-		result[0][1] = new Board(slotsw1);
-		result[0][2] = new Board(slotsw2);
-		result[0][3] = new Board(slotsw3);
-		result[1][0] = new Board(slotsb0);
-		result[1][1] = new Board(slotsb1);
-		result[1][2] = new Board(slotsb2);
-		result[1][3] = new Board(slotsb3);
+		result[0][0] = slotsw0;
+		result[0][1] = slotsw1;
+		result[0][2] = slotsw2;
+		result[0][3] = slotsw3;
+		result[1][0] = slotsb0;
+		result[1][1] = slotsb1;
+		result[1][2] = slotsb2;
+		result[1][3] = slotsb3;
 		
 		return result;
 	}
