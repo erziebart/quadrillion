@@ -54,6 +54,13 @@ public class Solver {
 		while (lCurrent.hasNext()) {
 			Piece p = lCurrent.getNext();
 			
+			/*if(lCurrent.size() == 12) {
+				System.out.println(p);
+			}
+			if(lCurrent.size() == 11) {
+				System.out.println("\t" + p);
+			}*/
+			
 			// loop across all orientations of this piece
 			ArrayList<Piece> orientations = bCurrent.fit(p, sCurrent);
 			//System.out.println("Begin Orientation Loop");
@@ -85,7 +92,7 @@ public class Solver {
 	
 	// returns how many ways the given piece list can fill the given board
 	public static int solutions(Board bCurrent, PieceList lCurrent) {
-		System.out.println(lCurrent.size());
+		//System.out.println(lCurrent.size());
 		
 		// base case
 		if (bCurrent.size() == 0) {
@@ -100,6 +107,12 @@ public class Solver {
 		// loop through all the pieces
 		while (lCurrent.hasNext()) {
 			Piece p = lCurrent.getNext();
+			/*if(lCurrent.size() == 11) {
+				System.out.println(p);
+			}
+			if(lCurrent.size() == 10) {
+				System.out.println("\t" + p);
+			}*/
 			
 			// loop across all orientations of this piece
 			ArrayList<Piece> orientations = bCurrent.fit(p, sCurrent);
@@ -196,7 +209,7 @@ public class Solver {
 				new Point(0,1), new Point(2,1)};
 		Point[] mint = {new Point(0,0), new Point(0,1), new Point(0,2),
 				new Point(1,0), new Point(1,1)};
-		Point[] cyan = {new Point(0,0), new Point(1,0), new Point(1,1)};
+		Point[] cyan = {new Point(0,0), new Point(1,0), new Point(0,1)};
 		Point[] indigo = {new Point(0,0), new Point(1,0), new Point(1,1),
 				new Point(1,2), new Point(2,2)};
 		Point[] pink = {new Point(0,0), new Point(0,1), new Point(0,2),
