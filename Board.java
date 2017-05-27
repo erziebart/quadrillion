@@ -85,8 +85,21 @@ public class Board {
 		ArrayList<Piece> answer = new ArrayList<Piece>();
 		// loop through root nodes
 		for(int i = 0; i < p.getSize(); i++) {
+			
+			// set parameters according to symmetries
+			int end = 8; 
+			int delta = 1;
+			if(p.has90DegRotSymmetry()) {
+				end = 2;
+			} else if(p.has180DegRotSymmetry()) {
+				end = 4;
+			}
+			if(p.hasMirrorSymmetry()) {
+				delta = 2;
+			}
+			
 			// loop through orientations
-			for(int j = 0; j < 8; j++) {
+			for(int j = 0; j < end; j+=delta) {
 				Piece transformed = p.getTransformed(s, i, j);
 				if (transformed.doesFit(this)) {
 					answer.add(transformed);

@@ -87,7 +87,7 @@ public class BoardSetUp {
 	 *     3 3
 	 ******************
 	 *
-	 * orientations (CW):
+	 * orientations (CCW):
 	 * 0 = 0 degrees
 	 * 1 = 90 degrees
 	 * 2 = 180 degrees
