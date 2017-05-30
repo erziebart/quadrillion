@@ -44,7 +44,7 @@ public class Solver {
 	// returns a list of piece locations that fill the board
 	public static ArrayList<Piece> solve(Board bCurrent, PieceList lCurrent) {
 		// base case
-		if (lCurrent.size() == 0) {
+		if (bCurrent.size() == 0) {
 			return new ArrayList<Piece>();
 		}
 		
