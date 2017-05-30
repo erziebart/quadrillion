@@ -34,15 +34,17 @@ public class Solver {
 			image.setVisible(true);
 		}
 		
+		pieces.reset();
+		
 		// get # of solutions
-		//int solutions = solutions(board, pieces);
-		//System.out.println("Solutions Found = " + solutions);
+		int solutions = solutions(board, pieces);
+		System.out.println("Solutions Found = " + solutions);
 	}
 	
 	// returns a list of piece locations that fill the board
 	public static ArrayList<Piece> solve(Board bCurrent, PieceList lCurrent) {
 		// base case
-		if (bCurrent.size() == 0) {
+		if (lCurrent.size() == 0) {
 			return new ArrayList<Piece>();
 		}
 		
