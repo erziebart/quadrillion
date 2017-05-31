@@ -34,9 +34,11 @@ public class Solver {
 			image.setVisible(true);
 		}
 		
+		pieces.reset();
+		
 		// get # of solutions
-		//int solutions = solutions(board, pieces);
-		//System.out.println("Solutions Found = " + solutions);
+		int solutions = solutions(board, pieces);
+		System.out.println("Solutions Found = " + solutions);
 	}
 	
 	// returns a list of piece locations that fill the board

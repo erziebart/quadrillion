@@ -8,6 +8,10 @@ public class PieceList {
 	
 	public PieceList() {
 		pieces = new ArrayList<Piece>();
+		reset();
+	}
+	
+	public void reset() {
 		current = -1;
 	}
 	

@@ -87,7 +87,7 @@ public class Board {
 		for(int i = 0; i < p.getSize(); i++) {
 			
 			// set parameters according to symmetries
-			int end = 8; 
+			int end = 8;
 			int delta = 1;
 			if(p.has90DegRotSymmetry()) {
 				end = 2;
