@@ -42,4 +42,4 @@ App User Instructions:
 - A highlighted black and white board piece can also have its position swapped with any other piece by clicking on the other piece.
 - To deselect a piece, right click anywhere.
 
-**Solver algorithm summary given in "algorithm.md"**
+*Solver algorithm summary given in "algorithm.md"*
