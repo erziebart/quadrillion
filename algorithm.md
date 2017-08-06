@@ -1,4 +1,4 @@
-Summary of Data Structures and Algorithm
+# Summary of Data Structures and Algorithm
 
 Board Slots:
 - Symbol: B
