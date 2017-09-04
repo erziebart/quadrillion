@@ -30,11 +30,13 @@ Executable:
 
 Steps to Run:
 
-1.) compile all code files into class files
-  --- command: "javac [filename].java"
-  
-2.) execute QuadrillionSolverApp
-  --- command: "java QuadrillionSolverApp"
+1.) place all ".java" files in a directory called "Main"
+
+2.) Navigate to the parent directory of "Main"
+
+3.) run the command "javac Main\QuadrillionSolverApp.java" to compile
+
+4.) run the command "java Main.QuadrillionSolverApp" to execute
   
 
 
