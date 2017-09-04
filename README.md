@@ -13,16 +13,23 @@ Code Files:
 - PieceList.java
 - PointCloud2D.java
 
-
-Required Class Files:
-- QuadrillionSolverApp.class
-- Solver.class
-- Board.class
-- BoardSetUp.class
-- Piece.class
-- PieceList.class
-- PointCloud2D.class
-
+External Dependencies:
+- java.awt.Point
+- java.awt.Font
+- java.awt.Rectangle
+- java.awt.Color
+- java.awt.Graphics
+- java.awt.geom.Point2D
+- java.awt.geom.Point2D.Double
+- java.awt.event.KeyEvent;
+- java.awt.event.KeyListener;
+- java.awt.event.MouseEvent;
+- java.awt.event.MouseListener;
+- java.awt.event.MouseMotionListener;
+- java.awt.image.BufferedImage;
+- java.util.ArrayList
+- java.util.Iterator
+- javax.swing.JFrame
 
 Executable:
 - QuadrillionSolverApp
