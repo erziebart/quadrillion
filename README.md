@@ -25,3 +25,5 @@ App User Instructions:
 
 
 *Solver algorithm summary given in "algorithm.md"*
+
+![solver interface](https://github.com/erziebart/quadrillion/blob/master/solver.png)
