@@ -4,47 +4,13 @@ Summary:
 Quadrillion is a logic puzzle invented by Smart Games. The objective is to fit 12 colored pieces of varying sizes and shapes onto a board. The four black and white board pieces can be flipped, rotated, and arranged into different shapes, which varies the difficulty of the puzzle. This program allows a user to choose a board arrangement and uses a recursive algorithm to find solutions for that particular board.
 
 
-Code Files:
-- QuadrillionSolverApp.java
-- Solver.java
-- Board.java
-- BoardSetUp.java
-- Piece.java
-- PieceList.java
-- PointCloud2D.java
-
-External Dependencies:
-- java.awt.Point
-- java.awt.Font
-- java.awt.Rectangle
-- java.awt.Color
-- java.awt.Graphics
-- java.awt.geom.Point2D
-- java.awt.geom.Point2D.Double
-- java.awt.event.KeyEvent;
-- java.awt.event.KeyListener;
-- java.awt.event.MouseEvent;
-- java.awt.event.MouseListener;
-- java.awt.event.MouseMotionListener;
-- java.awt.image.BufferedImage;
-- java.util.ArrayList
-- java.util.Iterator
-- javax.swing.JFrame
-
-Executable:
-- QuadrillionSolverApp
-
-
 Steps to Run:
 
-1.) Place all ".java" files in a directory called "Main"
+1.) Ensure the java runtime environment is installed on the machine
 
-2.) Navigate to the parent directory of "Main"
+2.) Download quadrillion-solver-1.0.jar and place it in a folder
 
-3.) Run the command "javac Main\QuadrillionSolverApp.java" to compile
-
-4.) Run the command "java Main.QuadrillionSolverApp" to execute
-  
+3.) In the folder where the .jar file is located, double-click the file or run the command "java -jar quadrillion-solver-1.0.jar"
 
 
 App User Instructions:
